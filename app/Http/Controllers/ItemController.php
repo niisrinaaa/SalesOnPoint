@@ -12,7 +12,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return view('item');
+        $Items = Item::all();
+        return view('item', compact('Items'));
     }
 
     /**
@@ -42,17 +43,25 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Item $item)
+    public function edit($id)
     {
-        //
+        $item = Item::findOrFail($id);
+        return view('edit', [
+            'type' => 'item',
+            'data' => $item
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Item $item)
+    public function update(Request $request, $id)
     {
-        //
+        $Item = Item::findOrFail($id);
+        $Item->name = $request->name;
+        $Item->save();
+    
+        return redirect()->route('item.index')->with('success', 'Kategori berhasil diupdate!');
     }
 
     /**
