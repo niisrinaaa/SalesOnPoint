@@ -61,6 +61,7 @@ class TransactionDetailController extends Controller
      */
     public function destroy(TransactionDetail $transactionDetail)
     {
-        //
+        $transactionDetail->delete();
+        return redirect()->route('transactionDetail.index')->with('success', 'Transaction Detail deleted successfully.');
     }
 }

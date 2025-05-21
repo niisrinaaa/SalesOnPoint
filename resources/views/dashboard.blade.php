@@ -18,3 +18,4 @@
 @extends('layout')
 @section('title', 'Home')
 @section('content-title', 'Dashboard')
+@section('content')

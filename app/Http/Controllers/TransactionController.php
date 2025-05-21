@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use App\Models\User;
 class TransactionController extends Controller
 {
     /**
@@ -21,7 +23,11 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        //
+    //     $users = User::all();
+    //     return view('create', [
+    //         'type' => 'transaction',
+    //         'user' => $users
+    //     ]);
     }
 
     /**
@@ -29,7 +35,17 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'user_id' => 'required|exists:users,id',
+        //     'datetime' => 'required|date',
+        //     'total' => 'required|numeric',
+        //     'pay_total' => 'required|numeric',
+             
+        // ]);
+
+        // Transaction::create($request->all());
+
+        // return redirect()->route('transaction.index')->with('success', 'Transaction created successfully.');
     }
 
     /**
@@ -61,6 +77,7 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        // $transaction->delete();
+        // return redirect()->route('transaction.index')->with('success', 'Transaction deleted successfully.');
     }
 }

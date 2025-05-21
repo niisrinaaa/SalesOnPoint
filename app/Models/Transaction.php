@@ -6,8 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    public function user()
-    {
-        return $this->belongsTo(user::class, 'users_id');
+    protected $fillable = [
+        'user_id',
+        'datetime',
+        'total',
+        'pay_total',
+    ];
+    public function User(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

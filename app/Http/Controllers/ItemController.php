@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
+use App\Models\Category;
 class ItemController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the resourc e.
      */
     public function index()
     {
-        $Items = Item::all();
-        return view('item', compact('Items'));
+        // $Items = Item::all();
+        $Items = Item::with('category')->get(); // mengambil data item beserta kategori
+        $Categories = Category::all(); // mengambil semua data kategori
+        return view('item', compact('Items', 'Categories')); //biar create satu file
     }
 
     /**
@@ -21,7 +25,10 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+        return view('item', [
+            'type' => 'Item',  //jika create di beda folder
+            'categories' => $Categories
+        ]);
     }
 
     /**
@@ -29,7 +36,23 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'categories_id' => 'required|exists:categories,id',
+        ]);
+
+        Item::create([ //milih data manual
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'categories_id' => $request->categories_id,
+        ]);
+
+        // Item::create($request->all()); //otomatis milih semua data
+
+        return redirect()->route('item.index')->with('success', 'Item created successfully.');
     }
 
     /**
@@ -43,25 +66,34 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(string $id)
     {
         $item = Item::findOrFail($id);
+        $Categories = Category::all();
         return view('edit', [
-            'type' => 'item',
-            'data' => $item
+            'type' =>'Item',
+            'Item' => $item,
+            'categories' => $Categories
         ]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,  $id)
     {
-        $Item = Item::findOrFail($id);
-        $Item->name = $request->name;
-        $Item->save();
-    
-        return redirect()->route('item.index')->with('success', 'Kategori berhasil diupdate!');
+        $request->validate([
+            'name' =>'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|integer',
+            'categories_id' => 'required|exists:categories,id',
+        ]);
+
+        //update product
+        $item = Item::findOrFail($id);
+        $item->update($request->all());
+        return redirect()->route('item.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**
@@ -69,6 +101,7 @@ class ItemController extends Controller
      */
     public function destroy(Item $item)
     {
-        //
+        $item->delete();
+        return redirect()->route('item.index')->with('success', 'Item deleted successfully.');
     }
 }

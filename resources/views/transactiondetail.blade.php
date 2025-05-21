@@ -4,7 +4,7 @@
 @section('content-title', 'history')
 @section('content')
 <div class="col-md-8">
-    <a class="btn btn-success" href="">ADD Data</a>
+    <a class="btn btn-success" href="{{ route('detail.create') }}">ADD Data</a>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -22,8 +22,13 @@
             <td>{{$TransactionDetail -> qty}}</td>
             <td>{{$TransactionDetail -> subtotal}}</td>
             <td>
-              <a class="btn btn-sm btn-warning" href="">Edit</a>
-              <a class="btn btn-sm btn-danger" href="">Hapus</a>
+              <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('detail.destroy', $TransactionDetail->id) }}" method="POST">
+                <a href="{{ route('detail.show', $TransactionDetail->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                <a href="{{ route('detail.edit', $TransactionDetail->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+            </form>
             </td>
           </tr>  
           @empty

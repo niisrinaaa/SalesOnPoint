@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
@@ -12,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $Categories = Category::all();
+        $Categories = Category::all(); // spt select * 
         return view('category', compact('Categories'));
     }
 
@@ -21,7 +23,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        // return view('create', 
+        //  ['type' =>'Category'] //buat halamn  create
+        // );
     }
 
     /**
@@ -29,7 +33,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>'required|string|min:2',
+        ],[
+            'name.required' => 'Kok kosong.....?',
+            'name.min' => '2 aja minimal',
+        ]);
+
+        
+
+        Category::create([ //mengisi manual
+            'name'=>$request->name]);
+
+        return redirect()->route('category.index')->with('success', 'Category berhasil ditambahkan!');  
     }
 
     /**
@@ -43,17 +59,30 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('edit', [
+            'type' =>'Category',
+            'category' => $category
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request,  $id)
     {
-        //
+        $request->validate([
+            'name' =>'required|string|min:2',
+        ]);
+
+        //update product
+        $Category = Category::findOrFail($id);
+        $Category->update([
+            'name'=>$request->name]);
+
+        return redirect()->route('category.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**
@@ -61,6 +90,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        //delete product
+        $category->delete();
+
+        //redirect to index
+        return redirect()->route('category.index')->with(['success' => 'Data berhasil dihapus!']);
     }
 }
