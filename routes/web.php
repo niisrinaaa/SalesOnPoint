@@ -8,13 +8,22 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionDetailController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
+Route::get('/wel', function () {
     return view('welcome');
+});
+
+Route::get('/', function () {
+    return view('guest/index');
+});
+
+Route::get('/userp', function () {
+    return view('userpov/index');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::resource('/category', CategoryController::class);
 Route::resource('/item', ItemController::class);
 Route::resource('/transaction', TransactionController::class);
