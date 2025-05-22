@@ -19,6 +19,18 @@ Route::get('/', function () {
 
 Route::get('/buying', function () {
     return view('userpov/index');
+// =======
+// Route::get('/leyot', function () {
+//     return view('layoutnotadmin');
+// });
+
+// Route::get('/', function () {
+//     return view('tampilanawal/index');
+// });
+
+// Route::get('/buying', function () {
+//     return view('tampilanbeli/index');
+// >>>>>>> 4b21c3c0b7296814d3b5934581d35bfed87731a4
 });
 
 
