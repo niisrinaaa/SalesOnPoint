@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('admin.layout')
 @section('title', 'Edit')
 @section('content-title',)
 @section('content')
@@ -6,7 +6,7 @@
     <h1>{{ ucfirst($type) }}</h1>
 
     @if($type == 'Category')
-        <form action="{{ route('category.update', $category->id ) }}" method="POST">
+        <form action="{{ route('admin.category.update', $category->id ) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -17,7 +17,7 @@
         </form>
 
     @elseif($type == 'Item')
-        <form action="{{ route('item.update', $Item->id) }}" method="POST">
+        <form action="{{ route('admin.item.update', $Item->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">

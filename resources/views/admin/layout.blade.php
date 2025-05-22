@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item {{Route::is('dashboard*') ? 'active' : ''}}">
-                <a class="nav-link" href="{{route ('dashboard')}}">
+                <a class="nav-link" href="{{route ('admin.dashboard')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -51,6 +51,30 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item {{Route::is('admin.robux.packages*') ? 'active' : ''}}">
+                <a class="nav-link" href="{{route ('admin.robux.packages.index')}}">
+                    <i class="fas fa-fw fa-gem"></i>
+                    <span>Paket Robux</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Transaksi Robux
+            </div>
+
+            <li class="nav-item {{Route::is('admin.robux.transactions*') ? 'active' : ''}}">
+                <a class="nav-link" href="{{route ('admin.robux.transactions.index')}}">
+                    <i class="fas fa-fw fa-cash-register"></i>
+                    <span>Kelola Transaksi</span>
+                </a>
+            </li>
+
+            {{-- 
             <!-- Heading -->
             <div class="sidebar-heading">
                 Master Data
@@ -58,13 +82,13 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item {{Route::is('category*') ? 'active' : ''}}">
-                <a class="nav-link" href="{{route ('category.index')}}">
+                <a class="nav-link" href="{{route ('admin.category.index')}}">
                     <i class="fas fa-fw fa-tag"></i>
                     <span>Master Category
                 </a>
             </li>
             <li class="nav-item {{Route::is('item*') ? 'active' : ''}}">
-                <a class="nav-link" href="{{route ('item.index')}}">
+                <a class="nav-link" href="{{route ('admin.item.index')}}">
                     <i class="fas fa-fw fa-store"></i>
                     <span>Master items
                 </a>
@@ -79,17 +103,17 @@
             </div>
 
             <li class="nav-item {{Route::is('transaction*') ? 'active' : ''}}">
-                <a class="nav-link" href="{{route ('transaction.index')}}">
+                <a class="nav-link" href="{{route ('admin.transaction.index')}}">
                     <i class="fas fa-fw fa-cash-register"></i>
                     <span>Transactions
                 </a>
             </li>
             <li class="nav-item {{Route::is('detail*') ? 'active' : ''}}">
-                <a class="nav-link" href="{{route ('detail.index')}}">
+                <a class="nav-link" href="{{route ('admin.detail.index')}}">
                     <i class="fas fa-fw fa-wallet"></i>
                     <span>History Transactions
                 </a>
-            </li>
+            </li> --}}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -384,3 +408,4 @@
 </body>
 
 </html>
+

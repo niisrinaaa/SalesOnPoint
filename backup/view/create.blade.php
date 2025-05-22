@@ -1,5 +1,5 @@
 {{-- resources/views/create.blade.php --}}
-@extends('layout')
+@extends('admin.layout')
 
 @section('title', 'Create Data')
 @section('content-title', 'Create ' . ucfirst($type))

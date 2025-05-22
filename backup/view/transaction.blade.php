@@ -1,5 +1,5 @@
 
-@extends('layout')
+@extends('admin.layout')
 @section('title', 'Home')
 @section('content-title', 'Transaction')
 @section('content')

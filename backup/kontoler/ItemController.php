@@ -17,7 +17,7 @@ class ItemController extends Controller
         // $Items = Item::all();
         $Items = Item::with('category')->get(); // mengambil data item beserta kategori
         $Categories = Category::all(); // mengambil semua data kategori
-        return view('item', compact('Items', 'Categories')); //biar create satu file
+        return view('admin.item', compact('Items', 'Categories')); //biar create satu file
     }
 
     /**
@@ -25,7 +25,7 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('item', [
+        return view('admin.item', [
             'type' => 'Item',  //jika create di beda folder
             'categories' => $Categories
         ]);
@@ -52,7 +52,7 @@ class ItemController extends Controller
 
         // Item::create($request->all()); //otomatis milih semua data
 
-        return redirect()->route('item.index')->with('success', 'Item created successfully.');
+        return redirect()->route('admin.item.index')->with('success', 'Item created successfully.');
     }
 
     /**
@@ -70,7 +70,7 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
         $Categories = Category::all();
-        return view('edit', [
+        return view('admin.edit', [
             'type' =>'Item',
             'Item' => $item,
             'categories' => $Categories
@@ -93,7 +93,7 @@ class ItemController extends Controller
         //update product
         $item = Item::findOrFail($id);
         $item->update($request->all());
-        return redirect()->route('item.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('admin.item.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**
@@ -102,6 +102,6 @@ class ItemController extends Controller
     public function destroy(Item $item)
     {
         $item->delete();
-        return redirect()->route('item.index')->with('success', 'Item deleted successfully.');
+        return redirect()->route('admin.item.index')->with('success', 'Item deleted successfully.');
     }
 }

@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         $Categories = Category::all(); // spt select * 
-        return view('category', compact('Categories'));
+        return view('admin.category', compact('Categories'));
     }
 
     /**
@@ -45,7 +45,7 @@ class CategoryController extends Controller
         Category::create([ //mengisi manual
             'name'=>$request->name]);
 
-        return redirect()->route('category.index')->with('success', 'Category berhasil ditambahkan!');  
+        return redirect()->route('admin.category.index')->with('success', 'Category berhasil ditambahkan!');  
     }
 
     /**
@@ -62,7 +62,7 @@ class CategoryController extends Controller
     public function edit(string $id)
     {
         $category = Category::findOrFail($id);
-        return view('edit', [
+        return view('admin.edit', [
             'type' =>'Category',
             'category' => $category
         ]);
@@ -82,7 +82,7 @@ class CategoryController extends Controller
         $Category->update([
             'name'=>$request->name]);
 
-        return redirect()->route('category.index')->with(['success' => 'Data Berhasil Diubah!']);
+        return redirect()->route('admin.category.index')->with(['success' => 'Data Berhasil Diubah!']);
     }
 
     /**
@@ -94,6 +94,6 @@ class CategoryController extends Controller
         $category->delete();
 
         //redirect to index
-        return redirect()->route('category.index')->with(['success' => 'Data berhasil dihapus!']);
+        return redirect()->route('admin.category.index')->with(['success' => 'Data berhasil dihapus!']);
     }
 }

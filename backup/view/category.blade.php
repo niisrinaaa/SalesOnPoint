@@ -1,5 +1,5 @@
 
-@extends('layout')
+@extends('admin.layout')
 @section('title', 'Home')
 @section('content-title', 'Category')
 @section('content')
@@ -30,8 +30,8 @@
             <td>{{ $loop -> iteration }}</td>
             <td>{{$Category -> name}}</td>
             <td>
-              <a href="{{ route('category.edit', $Category) }}" class="btn btn-sm btn-primary">EDIT</a>
-              <form class="d-inline" onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('category.destroy', $Category->id) }}" method="POST">
+              <a href="{{ route('admin.category.edit', $Category) }}" class="btn btn-sm btn-primary">EDIT</a>
+              <form class="d-inline" onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.category.destroy', $Category->id) }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -52,7 +52,7 @@
       <div class="card-header">
         <h4 class="card-title">Tambah Category</h4> </div>
         <div class="card-body">
-        <form action="{{ route('category.store') }}" method="POST">
+        <form action="{{ route('admin.category.store') }}" method="POST">
           @csrf
           @method('POST')
           <div class="form-group mb-3">

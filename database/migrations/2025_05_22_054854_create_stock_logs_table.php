@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('stock_logs', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('package_id')->constrained('robux_packages');
+        $table->integer('old_stock');
+        $table->integer('new_stock');
+        $table->enum('change_type', ['restock', 'purchase', 'adjustment']);
+        $table->text('notes')->nullable();
+        $table->string('admin_user')->nullable();
+        $table->timestamps();
+        $table->index(['package_id', 'change_type']);
+    });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('stock_logs');
+    }
+};

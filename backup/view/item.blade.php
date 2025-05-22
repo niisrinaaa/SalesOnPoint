@@ -1,5 +1,5 @@
 
-@extends('layout')
+@extends('admin.layout')
 @section('title', 'Home')
 @section('content-title', 'Master Item')
 @section('content')
@@ -29,8 +29,8 @@
             <td>{{$Item -> stock}}</td>
             <td>{{ $Item -> Category -> name}}</td>
             <td>
-              <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('item.destroy', $Item->id) }}" method="POST">
-                <a href="{{ route('item.edit', $Item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+              <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.item.destroy', $Item->id) }}" method="POST">
+                <a href="{{ route('admin.item.edit', $Item->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -52,7 +52,7 @@
       <div class="card-header">
         <h4 class="card-title">Tambah Item</h4> </div>
         <div class="card-body">
-    <form action="{{ route('item.store') }}" method="POST">
+    <form action="{{ route('admin.item.store') }}" method="POST">
       @csrf
       <div class="form-group mb-3">
           <label class="font-weight-bold">Nama Item</label>
