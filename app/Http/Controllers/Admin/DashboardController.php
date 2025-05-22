@@ -37,13 +37,18 @@ class DashboardController extends Controller
             ->limit(5)
             ->get();
 
+        $totalRobuxAmount = RobuxPackage::active()->get()->sum(function ($package) {
+        return $package->amount * $package->stock;
+});
+
         return view('admin.dashboard', compact([
             'todayRevenue',
             'todayTransactions', 
             'pendingDeliveries',
             'lowStockPackages',
             'totalStock',
-            'recentTransactions'
+            'recentTransactions',
+            'totalRobuxAmount'
         ]));
     }
 }

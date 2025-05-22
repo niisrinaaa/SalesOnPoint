@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('stock_logs', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('package_id')->constrained('robux_packages');
+        $table->foreignId('package_id')->constrained('robux_packages')->onDelete('cascade');
         $table->integer('old_stock');
         $table->integer('new_stock');
+        $table->integer('change_amount');
         $table->enum('change_type', ['restock', 'purchase', 'adjustment']);
         $table->text('notes')->nullable();
         $table->string('admin_user')->nullable();

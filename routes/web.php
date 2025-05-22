@@ -38,9 +38,9 @@ Route::get('/buying', function () {
 //     return view('userpov/index');
 // });
 
-// Route::get('/index', function () {
-//     return view('guest.index');
-// })->middleware(['auth', 'verified'])->name('guest.index');
+Route::get('/index', function () {
+    return view('guest.index');
+})->middleware(['auth', 'verified'])->name('guest.index');
 
 // Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
 //     Route::get('/dashboard', function () {

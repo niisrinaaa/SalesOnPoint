@@ -22,6 +22,7 @@ class RobuxPackageController extends Controller
     public function create()
     {
         return view('admin.robux.packages.create');
+
     }
 
     public function store(Request $request)
@@ -75,6 +76,7 @@ class RobuxPackageController extends Controller
     {
         $validated = $request->validate([
             'amount' => 'required|integer|min:1',
+            'change_amount' => 'required|integer|min:1',
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string|max:255',
             'is_active' => 'boolean'

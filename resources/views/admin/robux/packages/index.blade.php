@@ -61,12 +61,7 @@
                                         {{ $package->is_active ? 'Aktif' : 'Nonaktif' }}
                                     </span>
                                 </td>
-                                <td>
-                                    <a href="{{ route('admin.robux.packages.show', $package) }}" 
-                                       class="btn btn-sm btn-info">Detail</a>
-                                    <a href="{{ route('admin.robux.packages.edit', $package) }}" 
-                                       class="btn btn-sm btn-primary">Edit</a>
-                                    
+                                <td>           
                                     <!-- Update Stock Button -->
                                     <button type="button" class="btn btn-sm btn-warning" 
                                             data-toggle="modal" data-target="#updateStockModal{{ $package->id }}">
@@ -180,13 +175,13 @@
                         @enderror
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" name="is_active" class="custom-control-input" 
                                    id="is_active" {{ old('is_active', true) ? 'checked' : '' }}>
                             <label class="custom-control-label" for="is_active">Aktifkan paket</label>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <button type="submit" class="btn btn-primary btn-block">Tambah Paket</button>
                     <button type="reset" class="btn btn-secondary btn-block">Reset</button>
