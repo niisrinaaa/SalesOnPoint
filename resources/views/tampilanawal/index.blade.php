@@ -17,11 +17,15 @@
         text-align: center;
         cursor: pointer;
         transition: all 0.3s ease;
+        text-decoration: none;
+        color: #343635;
     }
 
     .rbx-btn:hover {
         background-color: #b5bab8;
         border-color: #818282;
+        text-decoration: none;
+        color: #343635;
     }
 
     .rbx-btn.active {
@@ -57,7 +61,7 @@
                                             </div>
                                         </div>
 
-                                        <button class="btn btn-success w-100">Beli Robux Sekarang</button>
+                                        <a href="buying" class="btn btn-success w-100">Beli Robux Sekarang</a>
                                     </div>
                                 </div>
 
@@ -65,22 +69,22 @@
                                 <div class="col-md-6 mb-3 border p-3">
                                     <strong class="d-block mb-2">Pilih Cepat</strong>
                                     <div class="d-flex flex-wrap gap-3">
-                                        <div class="rbx-btn">
+                                        <a href="buying" class="rbx-btn">
                                             <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
-                                            100 RBX
-                                        </div>
-                                        <div class="rbx-btn">
+                                            100 RBX 
+                                        </a>
+                                        <a href="buying" class="rbx-btn">
                                             <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
                                             500 RBX
-                                        </div>
-                                        <div class="rbx-btn">
+                                        </a>
+                                        <a href="buying" class="rbx-btn">
                                             <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
                                             1000 RBX
-                                        </div>
-                                        <div class="rbx-btn">
+                                        </a>
+                                        <a href="buying" class="rbx-btn">
                                             <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
                                             5000 RBX
-                                        </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

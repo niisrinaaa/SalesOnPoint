@@ -20,8 +20,8 @@ Route::get('/', function () {
     return view('tampilanawal/index');
 });
 
-Route::get('/userp', function () {
-    return view('userpov/index');
+Route::get('/buying', function () {
+    return view('tampilanbeli/index');
 });
 
 Route::get('/dashboard', function () {
