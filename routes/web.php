@@ -12,8 +12,12 @@ Route::get('/wel', function () {
     return view('welcome');
 });
 
+Route::get('/leyot', function () {
+    return view('layoutnotadmin');
+});
+
 Route::get('/', function () {
-    return view('guest/index');
+    return view('tampilanawal/index');
 });
 
 Route::get('/userp', function () {
