@@ -19,20 +19,38 @@ class StockLog extends Model
         'admin_user'
     ];
 
-    // Relationship
+    // Relationships
     public function package()
     {
         return $this->belongsTo(RobuxPackage::class, 'package_id');
     }
 
-    // Scope berdasarkan tipe perubahan
-    public function scopeRestock($query)
+    // Helper methods
+    public function getChangeTypeTextAttribute()
     {
-        return $query->where('change_type', 'restock');
+        $types = [
+            'restock' => 'Penambahan Stok',
+            'sold' => 'Terjual',
+            'adjustment' => 'Penyesuaian'
+        ];
+
+        return $types[$this->change_type] ?? $this->change_type;
     }
 
-    public function scopePurchase($query)
+    public function getChangeTypeBadgeAttribute()
     {
-        return $query->where('change_type', 'purchase');
+        $badges = [
+            'restock' => 'badge-success',
+            'sold' => 'badge-info',
+            'adjustment' => 'badge-warning'
+        ];
+
+        return $badges[$this->change_type] ?? 'badge-secondary';
+    }
+
+    public function getFormattedChangeAttribute()
+    {
+        $sign = $this->change_amount >= 0 ? '+' : '';
+        return $sign . $this->change_amount;
     }
 }

@@ -12,17 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('stock_logs', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('package_id')->constrained('robux_packages')->onDelete('cascade');
-        $table->integer('old_stock');
-        $table->integer('new_stock');
-        $table->integer('change_amount');
-        $table->enum('change_type', ['restock', 'purchase', 'adjustment']);
-        $table->text('notes')->nullable();
-        $table->string('admin_user')->nullable();
-        $table->timestamps();
-        $table->index(['package_id', 'change_type']);
-    });
+            $table->id();
+            $table->foreignId('package_id')->constrained('robux_packages')->onDelete('cascade');
+            $table->integer('old_stock');
+            $table->integer('new_stock');
+            $table->integer('change_amount');
+            $table->enum('change_type', ['restock', 'sold', 'adjustment']);
+            $table->text('notes')->nullable();
+            $table->string('admin_user')->nullable();
+            $table->timestamps();
+
+            $table->index(['package_id', 'created_at']);
+        });
     }
 
     /**

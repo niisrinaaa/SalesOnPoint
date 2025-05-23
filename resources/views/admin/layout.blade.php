@@ -350,13 +350,19 @@
             </div>
             <!-- End of Main Content -->
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
+           <footer class="sticky-footer bg-white py-3">
+            <div class="container my-auto">
+                <div class="text-center mb-2">
+                    <span>&copy; Bajak Robux 2025</span>
                 </div>
-            </footer>
+                <div class="text-center small text-muted">
+                    <strong>Kelompok:</strong><br>
+                    Ketua: Rivean<br>
+                    Front-end: Sekar<br>
+                    Back-end: Melodia, Nisrina
+                </div>
+            </div>
+        </footer>
             <!-- End of Footer -->
 
         </div>

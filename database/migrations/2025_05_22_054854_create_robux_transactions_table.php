@@ -12,24 +12,25 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('robux_transactions', function (Blueprint $table) {
-        $table->id();
-        $table->string('username_roblox', 100);
-        $table->foreignId('package_id')->constrained('robux_packages');
-        $table->foreignId('user_id')->nullable()->constrained('users'); // Optional jika ada login
-        $table->integer('robux_amount');
-        $table->decimal('price_paid', 10, 2);
-        $table->string('transaction_code', 50)->unique();
-        $table->enum('payment_status', ['pending', 'paid', 'failed', 'cancelled'])->default('pending');
-        $table->enum('delivery_status', ['waiting', 'processing', 'completed', 'failed'])->default('waiting');
-        $table->string('payment_method')->nullable();
-        $table->string('payment_reference')->nullable();
-        $table->timestamp('paid_at')->nullable();
-        $table->timestamp('delivered_at')->nullable();
-        $table->timestamps();
-        
-        $table->index(['payment_status', 'delivery_status']);
-        $table->index('transaction_code');
-    });
+            $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('package_id')->nullable()->constrained('robux_packages')->nullOnDelete();
+            $table->string('username_roblox');
+            $table->integer('robux_amount');
+            $table->decimal('price_paid', 12, 0);
+            $table->enum('payment_method', ['bank_transfer', 'e_wallet', 'credit_card']);
+            $table->enum('payment_status', ['pending', 'pending_verification', 'paid', 'failed', 'cancelled'])->default('pending');
+            $table->string('payment_reference')->nullable();
+            $table->string('payment_proof')->nullable();
+            $table->enum('delivery_status', ['waiting', 'processing', 'completed', 'failed'])->default('waiting');
+            $table->string('transaction_code')->unique();
+            $table->timestamp('delivered_at')->nullable();
+            $table->timestamps();
+
+            $table->index(['user_id', 'payment_status']);
+            $table->index(['payment_status', 'delivery_status']);
+            $table->index('transaction_code');
+        });
     }
 
     /**

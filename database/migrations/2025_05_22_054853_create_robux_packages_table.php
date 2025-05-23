@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('robux_packages', function (Blueprint $table) {
-        $table->id();
-        $table->integer('amount')->comment('Jumlah Robux');
-        $table->decimal('price', 10, 2)->comment('Harga dalam Rupiah');
-        $table->integer('stock')->default(0);
-        $table->boolean('is_active')->default(true);
-        $table->string('description')->nullable();
-        $table->timestamps();
-        
-        $table->index(['is_active', 'stock']);
-    });
+            $table->id();
+            $table->integer('amount'); // Jumlah Robux
+            $table->decimal('price', 12, 0); // Harga dalam Rupiah
+            $table->integer('stock')->default(0); // Stok tersedia
+            $table->string('description')->nullable(); // Deskripsi paket
+            $table->boolean('is_active')->default(true); // Status aktif/nonaktif
+            $table->timestamps();
+
+            $table->index(['is_active', 'stock']);
+        });
     }
 
     /**

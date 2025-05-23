@@ -9,6 +9,10 @@
         border-radius: 20px;
     }
 
+    img {
+        border-radius: 10px;
+    }
+
     .rbx-btn {
         border: 1px solid #e0e0e0;
         border-radius: 15px;
@@ -43,7 +47,6 @@
                         <div class="card card-custom shadow-sm p-4">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h4 class="mb-0">Top Up Robux</h4>
-                                <a href="#" class="text-success text-decoration-none">Lihat Ranking &raquo;</a>
                             </div>
 
                             <div class="row">
@@ -57,11 +60,11 @@
                                             </div>
                                             <div>
                                                 <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon">
-                                                <span class="ms-2 fs-5">99,234k</span>
+                                                <span class="ms-2 fs-5">{{ number_format($totalStock) }}</span>
                                             </div>
                                         </div>
 
-                                        <a href="buying" class="btn btn-success w-100">Beli Robux Sekarang</a>
+                                        <a href="{{ route('robux.index') }}" class="btn btn-primary w-100">Beli Robux Sekarang</a>
                                     </div>
                                 </div>
 
@@ -69,23 +72,12 @@
                                 <div class="col-md-6 mb-3 border p-3">
                                     <strong class="d-block mb-2">Pilih Cepat</strong>
                                     <div class="d-flex flex-wrap gap-3">
-                                        <a href="buying" class="rbx-btn">
-                                            <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
-                                            100 RBX 
-                                        </a>
-                                        <a href="buying" class="rbx-btn">
-                                            <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
-                                            500 RBX
-                                        </a>
-                                        <a href="buying" class="rbx-btn">
-                                            <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
-                                            1000 RBX
-                                        </a>
-                                        <a href="buying" class="rbx-btn">
-                                            <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
-                                            5000 RBX
-                                        </a>
-                                    </div>
+                                    @foreach($packages->take(4) as $package)
+                                <a href="{{ route('robux.index', $package->id) }}" class="rbx-btn">
+                                    <img src="https://img.icons8.com/color/48/robux.png" width="24" alt="robux-icon"><br>
+                                    {{ number_format($package->amount) }} RBX
+                                </a>
+                                @endforeach
                                 </div>
                             </div>
                         </div>

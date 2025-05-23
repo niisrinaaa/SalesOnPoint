@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 use App\Models\RobuxTransaction;
@@ -12,6 +13,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
+        $packages = RobuxPackage::all();
+
         // Total revenue hari ini
         $todayRevenue = RobuxTransaction::whereDate('created_at', today())
             ->where('payment_status', 'paid')
@@ -29,7 +33,9 @@ class DashboardController extends Controller
             ->get();
 
         // Total stok semua paket
-        $totalStock = RobuxPackage::where('is_active', true)->sum('stock');
+        $totalStock = $packages->reduce(function ($carry, $package) {
+        return $carry + ($package->stock * $package->amount);
+        }, 0);
 
         // Recent transactions
         $recentTransactions = RobuxTransaction::with(['package', 'user'])
@@ -50,5 +56,6 @@ class DashboardController extends Controller
             'recentTransactions',
             'totalRobuxAmount'
         ]));
+        
     }
 }

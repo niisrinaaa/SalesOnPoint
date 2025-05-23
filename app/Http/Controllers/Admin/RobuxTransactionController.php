@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\RobuxTransaction;
 use App\Models\RobuxPackage;
 use Illuminate\Http\Request;
-
 class RobuxTransactionController extends Controller
 {
     public function index(Request $request)
@@ -23,24 +22,15 @@ class RobuxTransactionController extends Controller
             $query->where('delivery_status', $request->delivery_status);
         }
 
-        // Search berdasarkan username atau transaction code
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->where('username_roblox', 'like', "%{$search}%")
-                  ->orWhere('transaction_code', 'like', "%{$search}%");
-            });
-        }
-
         $transactions = $query->latest()->paginate(20);
 
-        return view('admin.robux.transactions.index', compact('transactions'));
+        return view('admin.robux.packages.transactions.index', compact('transactions'));
     }
 
     public function show(RobuxTransaction $transaction)
     {
         $transaction->load(['package', 'user']);
-        return view('admin.robux.transactions.show', compact('transaction'));
+        return view('admin.robux.packages.transactions.show', compact('transaction'));
     }
 
     // Update payment status
@@ -78,3 +68,5 @@ class RobuxTransactionController extends Controller
             ->with('success', 'Status pengiriman berhasil diupdate!');
     }
 }
+
+

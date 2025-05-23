@@ -13,52 +13,93 @@ class RobuxPackage extends Model
         'amount',
         'price',
         'stock',
-        'is_active',
-        'description'
+        'description',
+        'is_active'
     ];
 
     protected $casts = [
-        'price' => 'decimal:2',
+        'price' => 'decimal:0',
         'is_active' => 'boolean'
     ];
 
-    // Relationship dengan transactions
+    // Relationships
     public function transactions()
     {
         return $this->hasMany(RobuxTransaction::class, 'package_id');
     }
 
-    // Relationship dengan stock logs
     public function stockLogs()
     {
         return $this->hasMany(StockLog::class, 'package_id');
     }
 
-    // Scope untuk package aktif
-    public function scopeActive($query)
+    // Helper methods
+    public function getFormattedPriceAttribute()
     {
-        return $query->where('is_active', true);
+        return 'Rp ' . number_format($this->price, 0, ',', '.');
     }
 
-    // Scope untuk package dengan stok
-    public function scopeInStock($query)
+    public function getPricePerRobuxAttribute()
     {
-        return $query->where('stock', '>', 0);
+        return $this->amount > 0 ? $this->price / $this->amount : 0;
     }
 
-    // Method untuk update stok
+    public function isInStock()
+    {
+        return $this->stock > 0;
+    }
+
+    public function isActive()
+    {
+        return $this->is_active;
+    }
+
+    public function getStockStatusAttribute()
+    {
+        if ($this->stock <= 0) {
+            return 'out_of_stock';
+        } elseif ($this->stock < 10) {
+            return 'low_stock';
+        } else {
+            return 'in_stock';
+        }
+    }
+
+    public function getStockStatusBadgeAttribute()
+    {
+        $badges = [
+            'out_of_stock' => 'badge-danger',
+            'low_stock' => 'badge-warning',
+            'in_stock' => 'badge-success'
+        ];
+
+        return $badges[$this->stock_status] ?? 'badge-secondary';
+    }
+
+    // Update stock with logging
     public function updateStock($newStock, $notes = null, $adminUser = null)
     {
         $oldStock = $this->stock;
+        $changeAmount = $newStock - $oldStock;
+        
+        // Determine change type
+        $changeType = 'adjustment';
+        if ($changeAmount > 0) {
+            $changeType = 'restock';
+        } elseif ($changeAmount < 0) {
+            $changeType = 'sold';
+        }
+
+        // Update stock
         $this->update(['stock' => $newStock]);
 
-        // Log perubahan stok
+        // Log the change
         StockLog::create([
             'package_id' => $this->id,
             'old_stock' => $oldStock,
             'new_stock' => $newStock,
-            'change_amount' => $newStock - $oldStock,
-            'change_type' => 'adjustment',
+            'change_amount' => $changeAmount,
+            'change_type' => $changeType,
             'notes' => $notes,
             'admin_user' => $adminUser
         ]);
@@ -66,29 +107,21 @@ class RobuxPackage extends Model
         return $this;
     }
 
-    // Method untuk kurangi stok saat pembelian
-    public function decrementStock($amount = 1)
+    // Scope for active packages
+    public function scopeActive($query)
     {
-        if ($this->stock >= $amount) {
-            $oldStock = $this->stock;
-            $this->decrement('stock', $amount);
-
-            StockLog::create([
-                'package_id' => $this->id,
-                'old_stock' => $oldStock,
-                'new_stock' => $this->stock,
-                'change_amount' => -$amount,
-                'change_type' => 'purchase'
-            ]);
-
-            return true;
-        }
-        return false;
+        return $query->where('is_active', true);
     }
 
-    // Format harga untuk display
-    public function getFormattedPriceAttribute()
+    // Scope for packages with stock
+    public function scopeInStock($query)
     {
-        return 'Rp ' . number_format($this->price, 0, ',', '.');
+        return $query->where('stock', '>', 0);
+    }
+
+    // Scope for low stock packages
+    public function scopeLowStock($query, $threshold = 10)
+    {
+        return $query->where('stock', '<', $threshold)->where('stock', '>', 0);
     }
 }

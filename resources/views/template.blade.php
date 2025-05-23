@@ -107,16 +107,7 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search...">
-                            <div class="input-group-append">
-                                <button class="btn btn-secondary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <h3 style="left-margin: 3px">Bajak Robux</h3>
 
                     <ul class="navbar-nav ml-auto">
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -161,13 +152,20 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center">
-                        <span>&copy; Toko Online 2025</span>
-                    </div>
+            <footer class="sticky-footer bg-white py-3">
+            <div class="container my-auto">
+                <div class="text-center mb-2">
+                    <span>&copy; Bajak Robux 2025</span>
                 </div>
-            </footer>
+                <div class="text-center small text-muted">
+                    <strong>Kelompok:</strong><br>
+                    Ketua: Rivean<br>
+                    Front-end: Sekar<br>
+                    Back-end: Melodia, Nisrina
+                </div>
+            </div>
+        </footer>
+
             <!-- End of Footer -->
 
         </div>

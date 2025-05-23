@@ -178,7 +178,7 @@
                     {{-- <div class="form-group">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" name="is_active" class="custom-control-input" 
-                                   id="is_active" {{ old('is_active', true) ? 'checked' : '' }}>
+                                 id="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }}>
                             <label class="custom-control-label" for="is_active">Aktifkan paket</label>
                         </div>
                     </div> --}}
